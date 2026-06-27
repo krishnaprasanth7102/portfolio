@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  color: #f8f8f8;
+  background: #050505;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(220, 38, 38, 0.08), transparent 30%), #050505;
+  color: #f8f8f8;
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Times New Roman", Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+button,
+a {
+  transition: all 220ms ease;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 4px;
+}
+
+p,
+span,
+a,
+button,
+li {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: #8B5CF6;
+  color: #fff;
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: "Times New Roman", Georgia, serif;
+  }
+  .font-sans {
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+}
+
