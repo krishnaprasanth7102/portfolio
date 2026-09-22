@@ -2,9 +2,9 @@
 
 :root {
   color-scheme: dark;
-  color: #f8f8f8;
-  background: #050505;
-  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff4f6;
+  background: #0b0509;
+  font-family: "Inter", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
@@ -19,8 +19,11 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, rgba(220, 38, 38, 0.08), transparent 30%), #050505;
-  color: #f8f8f8;
+  background:
+    radial-gradient(circle at top left, rgba(255, 90, 107, 0.18), transparent 32%),
+    radial-gradient(circle at top right, rgba(255, 61, 85, 0.10), transparent 24%),
+    #0b0509;
+  color: #fff4f6;
   font-family: inherit;
 }
 
@@ -30,9 +33,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Times New Roman", Georgia, serif;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 
 button,
@@ -42,7 +46,7 @@ a {
 
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid #8B5CF6;
+  outline: 2px solid #ff5a6b;
   outline-offset: 4px;
 }
 
@@ -60,16 +64,16 @@ a {
 }
 
 ::selection {
-  background: #8B5CF6;
-  color: #fff;
+  background: #ff5a6b;
+  color: #1a080d;
 }
 
 @layer utilities {
   .font-serif {
-    font-family: "Times New Roman", Georgia, serif;
+    font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   }
   .font-sans {
-    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   }
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 
 const reveal = {
@@ -13,24 +14,101 @@ const heroVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.85, ease: "easeOut" } },
 };
 
+const portfolioHighlights = [
+  { value: "2+", label: "Years of visual design & 3D craft" },
+  { value: "15+", label: "Blender and concept pieces in the portfolio" },
+  { value: "3", label: "Creative roles showing initiative and growth" },
+  { value: "100%", label: "Focused on premium storytelling and polish" },
+];
+
+const skillGroups = {
+  art: ["Blender", "3D Modeling", "Texturing", "Lighting", "Rendering", "Concept Art"],
+  digital: ["Next.js", "React", "JavaScript", "UI Design", "Responsive Design", "Creative Frontend"],
+  strengths: ["Visual Storytelling", "Mentoring", "Creative Direction", "Collaboration"],
+};
+
+const featuredWork = [
+  { title: "Billboard Vessel", category: "3D visualization", image: "billboard.png" },
+  { title: "Skyline Study", category: "Environment art", image: "skyscaapper.png" },
+  { title: "Nocturnal Axis", category: "Concept framing", image: "Screenshot 2026-05-18 222026.png" },
+  { title: "Urban Echo", category: "Lighting pass", image: "Screenshot 2026-05-18 222045.png" },
+  { title: "Shadow Corridor", category: "Atmospheric scene", image: "Screenshot 2026-05-18 222102.png" },
+  { title: "Silent Signal", category: "Sci-fi concept", image: "Screenshot 2026-05-18 222221.png" },
+];
+
+const experiences = [
+  {
+    role: "Blender Mentor",
+    company: "Mulearn Foundation",
+    period: "Present",
+    description:
+      "Guiding students in Blender workflows, modelling, lighting, and visual communication while helping them turn ideas into polished creative output.",
+  },
+  {
+    role: "Blender Designer Intern",
+    company: "Mulearn Foundation",
+    period: "May 2024 - Aug 2024",
+    description:
+      "Created 3D assets, visual studies, and polished renders using Blender while meeting deadlines and quality expectations.",
+  },
+  {
+    role: "Blender Designer Intern",
+    company: "Mulearn Foundation",
+    period: "Nov 2023 - Apr 2024",
+    description:
+      "Developed Blender design work while demonstrating dedication, technical expertise, and professional adaptability.",
+  },
+  {
+    role: "Campus Ambassador Intern",
+    company: "BeyondExams",
+    period: "Feb 2023 - Mar 2023",
+    description:
+      "Built portfolio-driven digital experiences and supported student engagement through creative and technical initiatives.",
+  },
+];
+
+const documents = [
+  {
+    title: "Blender Designer Internship",
+    issuer: "Mulearn Foundation",
+    period: "May 1, 2024 to August 31, 2024",
+    description: "Certificate of completed internship for Blender design, work delivered on time with strong professionalism and growth.",
+    file: "/pdfs/Krishna%20Prasanth%20S%20-%20Blender%20Designer%20(3).pdf",
+  },
+  {
+    title: "Blender Designer Internship",
+    issuer: "Mulearn Foundation",
+    period: "November 1, 2023 to April 30, 2024",
+    description: "Certificate recommending Krishna for his dedication, expertise, and professional adaptability.",
+    file: "/pdfs/Krishna%20Prasanth%20S%20%20-%20Blender%20Designer%20.pdf",
+  },
+  {
+    title: "Work Experience Letter",
+    issuer: "BeyondExams",
+    period: "Feb 1, 2023 to March 25, 2023",
+    description: "Letter highlighting portfolio site work, mentorship, and project leadership as a Campus Ambassador.",
+    file: "/pdfs/Krishna%20Prasanth_work_ex_letter%20(1).pdf",
+  },
+];
+
 function NavBar() {
   return (
-    <nav className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#070707]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
-      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-4 lg:px-10">
-        <a href="#top" className="font-serif text-2xl font-semibold tracking-[-0.04em] text-white">
-          KRISHNA
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#07131d]/85 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4 lg:px-8">
+        <a href="#top" className="text-lg font-semibold tracking-[0.24em] text-[#e8f6ff] uppercase">
+          Krishna
         </a>
-        <div className="hidden gap-8 text-xs uppercase tracking-[0.35em] text-white/60 sm:flex">
-          <a href="#gallery" className="transition hover:text-white">Gallery</a>
-          <a href="#resume" className="transition hover:text-white">Resume</a>
-          <a href="#credentials" className="transition hover:text-white">Credentials</a>
-          <a href="#contact" className="transition hover:text-white">Contact</a>
+        <div className="hidden items-center gap-6 text-[0.68rem] uppercase tracking-[0.28em] text-white/55 md:flex">
+          <a href="#about" className="transition hover:text-[#73f0ff]">About</a>
+          <a href="#experience" className="transition hover:text-[#73f0ff]">Experience</a>
+          <a href="#work" className="transition hover:text-[#73f0ff]">Work</a>
+          <a href="#contact" className="transition hover:text-[#73f0ff]">Contact</a>
         </div>
         <a
-          href="mailto:hello@krishnaprasanth.dev"
-          className="inline-flex items-center justify-center rounded-full bg-[#8B5CF6] px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white shadow-xl shadow-[#8B5CF6]/20 transition hover:bg-[#7C3AED]"
+          href="mailto:kpts7102@gmail.com"
+          className="neon-button"
         >
-          Say hello
+          Hire me
         </a>
       </div>
     </nav>
@@ -41,145 +119,103 @@ function HeroSection() {
   const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-120px" });
 
   return (
-    <section ref={ref} id="top" className="relative min-h-screen overflow-hidden bg-[#090713] pt-16 lg:pt-20 text-white">
-      <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-[#8B5CF6]/10 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full bg-white/5 blur-3xl" />
+    <section ref={ref} id="top" className="relative overflow-hidden bg-[#07131d] pt-24 text-white lg:pt-28">
+      <div className="pointer-events-none absolute -left-20 top-10 h-80 w-80 rounded-full bg-[#6ee7ff]/15 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-1/3 h-[28rem] w-[28rem] rounded-full bg-[#8b5cf6]/12 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(110,231,255,0.08),transparent_48%)]" />
+
       <motion.div
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
         variants={heroVariants}
-        className="mx-auto grid max-w-[1440px] items-center gap-16 px-6 pb-24 pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:pt-12"
+        className="relative mx-auto grid max-w-[1200px] items-center gap-16 px-6 pb-20 pt-8 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:pt-12"
       >
-        <div className="space-y-10">
-          <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/60">
-            Blender • Web • Design
-          </div>
-          <div className="space-y-6 max-w-2xl">
-            <div className="space-y-4">
-              <h1 className="font-serif text-6xl leading-[0.92] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl">
-                Krishna
-              </h1>
-              <h2 className="font-serif text-5xl leading-[0.95] tracking-[-0.03em] text-[#F5F5F5] sm:text-6xl lg:text-7xl">
-                Prasanth
-              </h2>
-            </div>
-            <p className="text-xl leading-9 text-white/70 sm:text-2xl">
-              I create immersive Blender visuals, polished Next.js experiences, and thoughtful tools for design-led digital storytelling.
-            </p>
+        <div className="space-y-8">
+          <div className="section-tag">3D Artist • Creative Technologist • Game-ready Visual Designer</div>
+
+          <div className="space-y-5">
+            <p className="text-sm uppercase tracking-[0.35em] text-[#7be7ff]">Open to opportunities</p>
+            <h1 className="max-w-xl text-5xl font-semibold leading-[0.93] tracking-[-0.06em] text-white sm:text-6xl lg:text-7xl">
+              Krishna Prasanth S
+            </h1>
+            <h2 className="max-w-2xl text-xl font-medium leading-8 text-[#cfe7ff] sm:text-2xl">
+              I create bold 3D visuals and immersive digital experiences for teams that care about visual quality and gameplay feel.
+            </h2>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
-            <a
-              href="#gallery"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#8B5CF6] px-8 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white shadow-lg shadow-[#8B5CF6]/25 transition duration-300 hover:bg-[#7C3AED] hover:shadow-[#7C3AED]/40 hover:-translate-y-0.5"
-            >
-              View gallery
-              <span className="opacity-0 group-hover:opacity-100 transition">→</span>
+          <p className="max-w-xl text-base leading-8 text-[#dfeaf7]/80 sm:text-lg">
+            My work blends Blender artistry, visual storytelling, and modern frontend presentation — giving game studios and creative teams a profile that feels premium, polished, and ready for real production conversations.
+          </p>
+
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <a href="#work" className="neon-button">
+              View portfolio
             </a>
-            <a
-              href="/pdfs/Krishna%20Prasanth_work_ex_letter%20(1).pdf"
-              download="Krishna-Prasanth-Experience-Letter.pdf"
-              className="group inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#8B5CF6]/50 bg-[#8B5CF6]/10 px-8 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-[#8B5CF6] backdrop-blur-sm transition duration-300 hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/20 hover:-translate-y-0.5"
-            >
-              Download resume
-              <span className="opacity-0 group-hover:opacity-100 transition">↓</span>
+            <a href="/pdfs/Krishna%20Prasanth_work_ex_letter%20(1).pdf" download="Krishna-Prasanth-Resume.pdf" className="secondary-button">
+              Download CV
             </a>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-6 pt-2 text-sm text-[#d8e4f2]/70">
+            <span>Based in India</span>
+            <span className="h-1 w-1 rounded-full bg-white/30" />
+            <a href="mailto:kpts7102@gmail.com" className="transition hover:text-white">kpts7102@gmail.com</a>
+            <span className="h-1 w-1 rounded-full bg-white/30" />
+            <a href="https://linkedin.com/in/krishna-prasanth-s" target="_blank" rel="noreferrer" className="transition hover:text-white">LinkedIn</a>
           </div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-          transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-          className="relative hidden h-[600px] w-full items-center justify-center lg:flex"
+          transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+          className="relative flex h-[560px] items-center justify-center"
         >
-          {/* Soft background glow */}
-          <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-[#8B5CF6]/30 to-[#EC4899]/10 blur-[100px]" />
+          <div className="absolute h-[430px] w-[430px] rounded-full bg-[radial-gradient(circle,rgba(110,231,255,0.26),rgba(139,92,246,0.12),transparent_65%)] blur-[120px]" />
 
-          {/* Card 1: Back left */}
           <motion.div
-            animate={{ y: [-10, 10, -10], rotate: [-4, -1, -4] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[2%] top-[10%] aspect-[4/5] w-[260px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d0d0d] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            animate={{ y: [-12, 12, -12], rotate: [-5, -2, -5] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute left-8 top-16 h-[260px] w-[220px] overflow-hidden rounded-[2rem] border border-[#73f0ff]/20 bg-[#0d1823] shadow-[0_30px_90px_rgba(0,0,0,0.55)]"
           >
-            <div className="absolute inset-0 bg-black/20 mix-blend-overlay z-10 transition duration-500 hover:bg-transparent" />
-            <img src="/art/Screenshot%202026-05-18%20222026.png" alt="3D Render 1" className="h-full w-full object-cover opacity-70 transition duration-500 hover:opacity-100" />
+            <Image fill src="/art/Screenshot%202026-05-18%20222026.png" alt="3D artwork 1" className="object-cover opacity-80" sizes="220px" />
           </motion.div>
 
-          {/* Card 2: Back right */}
           <motion.div
-            animate={{ y: [10, -10, 10], rotate: [4, 1, 4] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute right-[2%] top-[15%] aspect-[3/4] w-[240px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d0d0d] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            animate={{ y: [12, -12, 12], rotate: [5, 2, 5] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+            className="absolute right-8 top-20 h-[240px] w-[200px] overflow-hidden rounded-[2rem] border border-[#ff9a5b]/20 bg-[#0d1823] shadow-[0_30px_90px_rgba(0,0,0,0.55)]"
           >
-            <div className="absolute inset-0 bg-black/20 mix-blend-overlay z-10 transition duration-500 hover:bg-transparent" />
-            <img src="/art/skyscaapper.png" alt="3D Render 2" className="h-full w-full object-cover opacity-70 transition duration-500 hover:opacity-100" />
+            <Image fill src="/art/skyscaapper.png" alt="3D artwork 2" className="object-cover opacity-80" sizes="200px" />
           </motion.div>
 
-          {/* Card 3: Main Front */}
           <motion.div
-            animate={{ y: [-15, 15, -15] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute z-20 aspect-[4/5] w-[340px] overflow-hidden rounded-[2.5rem] border border-white/20 bg-[#0a0a0a] shadow-[0_40px_100px_rgba(0,0,0,0.8),0_0_40px_rgba(139,92,246,0.15)]"
+            animate={{ y: [-14, 14, -14] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+            className="relative z-10 h-[390px] w-[300px] overflow-hidden rounded-[2.3rem] border border-[#7be7ff]/20 bg-[#091824] shadow-[0_40px_120px_rgba(0,0,0,0.75),0_0_50px_rgba(110,231,255,0.18)]"
           >
-            <img src="/art/billboard.png" alt="Featured 3D Render" className="h-full w-full object-cover transition duration-700 hover:scale-110 cursor-pointer" />
-            
-            {/* Glassmorphism label */}
-            <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-black/50 p-4 backdrop-blur-md shadow-2xl">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-semibold text-white">Featured Work</p>
-                  <p className="text-[10px] text-white/60">Blender / Cycles</p>
-                </div>
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition hover:bg-white/20 cursor-pointer">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-              </div>
+            <Image fill src="/art/billboard.png" alt="Featured artwork" className="object-cover" sizes="300px" priority />
+            <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-white/10 bg-[#07131d]/80 p-4 backdrop-blur-md">
+              <p className="text-[0.62rem] uppercase tracking-[0.24em] text-[#9bdfff]">Featured</p>
+              <p className="mt-2 text-lg font-semibold text-white">Visual storytelling in 3D</p>
             </div>
           </motion.div>
-          
-          {/* Decorative glass spheres */}
-          <motion.div
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-[5%] left-[5%] z-30 h-16 w-16 rounded-full border border-white/20 bg-gradient-to-br from-white/10 to-transparent shadow-xl backdrop-blur-xl"
-          />
-          <motion.div
-            animate={{ y: [0, 20, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute right-[5%] top-[40%] z-30 h-12 w-12 rounded-full border border-[#8B5CF6]/30 bg-[#8B5CF6]/10 shadow-xl backdrop-blur-xl"
-          />
         </motion.div>
       </motion.div>
-    </section>
-  );
-}
 
-function TrustSection() {
-  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
-
-  const features = [
-    { label: "Studio-ready art", desc: "Clean 3D work with professional polish." },
-    { label: "Next.js builds", desc: "Fast, responsive web presentation." },
-    { label: "Community driven", desc: "Mentorship and tech club collaboration." },
-    { label: "AI + games", desc: "Exploring creative tools and interactive ideas." },
-  ];
-
-  return (
-    <section ref={ref} className="border-t border-white/10 bg-[#100c22] py-20">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feat, idx) => (
+      <div className="mx-auto max-w-[1200px] px-6 pb-20 lg:px-8">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {portfolioHighlights.map((item) => (
             <motion.div
-              key={feat.label}
+              key={item.label}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
               variants={reveal}
-              transition={{ delay: idx * 0.08 }}
-              className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_30px_70px_rgba(0,0,0,0.18)] transition hover:-translate-y-1 hover:border-[#8B5CF6]/30"
+              className="stat-card"
             >
-              <p className="text-xs uppercase tracking-[0.35em] text-white/60">{feat.label}</p>
-              <p className="mt-3 font-serif text-lg text-white">{feat.desc}</p>
+              <p className="text-3xl font-semibold tracking-[-0.05em] text-white">{item.value}</p>
+              <p className="mt-3 text-sm leading-6 text-[#d1def3]/75">{item.label}</p>
             </motion.div>
           ))}
         </div>
@@ -188,76 +224,218 @@ function TrustSection() {
   );
 }
 
-function CredentialsSection() {
+function AboutSection() {
   const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
-  const documents = [
-    {
-      title: "Blender Designer Internship",
-      subtitle: "Learn Foundation — May 1, 2024 to August 31, 2024",
-      description:
-        "Certificate of completed internship for Blender design, work delivered on time with strong professionalism and growth.",
-      file: "Krishna Prasanth S  - Blender Designer .pdf",
-    },
-    {
-      title: "Blender Designer Internship",
-      subtitle: "Mulearn Foundation — November 1, 2023 to April 30, 2024",
-      description:
-        "Certificate recommending Krishna for his dedication, expertise, and professional adaptability.",
-      file: "Krishna Prasanth S - Blender Designer (3).pdf",
-    },
-    {
-      title: "Work Experience Letter",
-      subtitle: "BeyondExams — Feb 1, 2023 to March 25, 2023",
-      description:
-        "Letter highlighting portfolio site work, mentorship, and project leadership as a Campus Ambassador.",
-      file: "Krishna Prasanth_work_ex_letter (1).pdf",
-    },
-  ];
 
   return (
-    <section ref={ref} id="credentials" className="bg-[#0c091b] py-24">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-        <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60">Credentials</p>
-            <h2 className="font-serif text-4xl leading-tight text-white sm:text-5xl">
-              Verified Blender experience
+    <section ref={ref} id="about" className="bg-[#08141b] py-24">
+      <div className="mx-auto grid max-w-[1200px] gap-8 px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8">
+        <motion.div
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={reveal}
+          className="space-y-6"
+        >
+          <p className="section-tag section-tag--compact">About</p>
+          <h2 className="max-w-xl text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+            A creative designer who turns ideas into polished, game-ready experiences.
+          </h2>
+          <p className="max-w-2xl text-base leading-8 text-[#dfeaf7]/80 sm:text-lg">
+            I enjoy building work that balances visual impact with clear execution. My background blends 3D design, digital art, mentoring, and frontend craftsmanship — giving me the ability to create content that feels premium and communicates well in a studio environment.
+          </p>
+          <p className="max-w-2xl text-base leading-8 text-[#dfeaf7]/80 sm:text-lg">
+            Whether it is a concept render, portfolio presentation, or immersive visual story, I focus on clean craft, detail, and the kind of presence that helps a recruiter instantly connect the work with production value.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={reveal}
+          className="soft-panel p-6"
+        >
+          <p className="text-[0.7rem] uppercase tracking-[0.35em] text-[#dfeaf7]/55">Profile</p>
+          <div className="mt-5 flex items-center gap-4">
+            <Image src="/profile.jpg" alt="Krishna Prasanth S" width={64} height={64} className="h-16 w-16 rounded-full object-cover ring-2 ring-[#73f0ff]/40" />
+            <div>
+              <p className="text-xl font-semibold text-white">Krishna Prasanth S</p>
+              <p className="text-sm text-[#dfeaf7]/70">3D Artist • Creative Designer</p>
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {skillGroups.art.map((skill) => (
+              <div key={skill} className="rounded-xl border border-white/10 bg-white/[0.02] px-3 py-3 text-sm text-[#eaf5ff]/80">
+                {skill}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function ExperienceSection() {
+  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
+
+  return (
+    <section ref={ref} id="experience" className="bg-[#091924] py-24">
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+        <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} variants={reveal} className="mb-12">
+          <p className="section-tag section-tag--compact">Experience</p>
+          <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+            Experience that shows both craft and initiative.
+          </h2>
+        </motion.div>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {experiences.map((exp, index) => (
+            <motion.article
+              key={`${exp.role}-${exp.period}`}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={reveal}
+              transition={{ delay: index * 0.08 }}
+              className="soft-panel p-6"
+            >
+              <p className="text-[0.66rem] uppercase tracking-[0.28em] text-[#7be7ff]">{exp.period}</p>
+              <h3 className="mt-5 text-2xl font-semibold text-white">{exp.role}</h3>
+              <p className="mt-2 text-sm uppercase tracking-[0.2em] text-[#dfeaf7]/55">{exp.company}</p>
+              <p className="mt-5 text-base leading-7 text-[#dfeaf7]/75">{exp.description}</p>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WorkSection() {
+  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
+
+  return (
+    <section ref={ref} id="work" className="bg-[#08141b] py-24">
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+        <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} variants={reveal} className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="section-tag section-tag--compact">Selected work</p>
+            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+              Visual work designed to stand out.
             </h2>
           </div>
-          <p className="max-w-xl text-sm leading-7 text-white/70">
-            Certified internship and experience documents linked directly for fast review and download.
+          <p className="max-w-xl text-base leading-7 text-[#dfeaf7]/75">
+            Each piece emphasizes atmosphere, form, and presentation — the same qualities that matter in standout game and creative roles.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {documents.map((doc, idx) => (
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {featuredWork.map((item, index) => (
             <motion.article
-              key={doc.file}
+              key={item.title}
               initial="hidden"
-              animate={inView ? "visible" : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
               variants={reveal}
-              transition={{ delay: idx * 0.08 }}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#100b1f] p-8 transition duration-300 hover:-translate-y-1 hover:border-[#8B5CF6]/20"
+              transition={{ delay: index * 0.08 }}
+              className="group overflow-hidden rounded-[2rem] border border-white/10 bg-[#0f1a26]"
             >
-              <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[#8B5CF6] via-white/20 to-[#8B5CF6] transition-all duration-300 group-hover:h-1" />
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.35em] text-[#8B5CF6]">{idx + 1}</p>
-                  <h3 className="mt-3 font-serif text-2xl text-white">{doc.title}</h3>
-                </div>
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#8B5CF6] text-sm text-[#8B5CF6]">PDF</span>
+              <div className="relative h-[360px] overflow-hidden">
+                <Image
+                  fill
+                  src={encodeURI(`/art/${item.image}`)}
+                  alt={item.title}
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                />
               </div>
-              <p className="mt-6 text-sm leading-7 text-white/70">{doc.subtitle}</p>
-              <p className="mt-4 text-sm leading-7 text-white/60">{doc.description}</p>
-              <a
-                href={`/pdfs/${encodeURIComponent(doc.file)}`}
-                download
-                target="_blank"
-                rel="noreferrer"
-                className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white shadow-lg shadow-[#8B5CF6]/30 transition duration-300 hover:shadow-[#7C3AED]/40 hover:-translate-y-0.5"
-              >
-                Download
-                <span>→</span>
+              <div className="space-y-3 p-6">
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#dfeaf7]/55">{item.category}</p>
+                <h3 className="text-2xl font-semibold text-white">{item.title}</h3>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SkillsSection() {
+  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
+
+  return (
+    <section ref={ref} className="bg-[#091924] py-24">
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+        <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} variants={reveal} className="mb-12">
+          <p className="section-tag section-tag--compact">Core strengths</p>
+          <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+            Skills recruiters look for in a creative digital profile.
+          </h2>
+        </motion.div>
+
+        <div className="grid gap-8 lg:grid-cols-3">
+          {Object.entries(skillGroups).map(([group, items]) => (
+            <motion.div
+              key={group}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={reveal}
+              className="soft-panel p-6"
+            >
+              <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#dfeaf7]/55">{group}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {items.map((item) => (
+                  <span key={item} className="rounded-full border border-[#7be7ff]/20 bg-[#0c1823] px-3 py-2 text-sm text-[#edf7ff]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DocumentsSection() {
+  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
+
+  return (
+    <section ref={ref} id="credentials" className="bg-[#080512] py-24">
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+        <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} variants={reveal} className="mb-12">
+          <p className="section-tag section-tag--compact">Credentials</p>
+          <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+            Proof of the work behind the portfolio.
+          </h2>
+        </motion.div>
+
+        <div className="grid gap-5 lg:grid-cols-3">
+          {documents.map((document, index) => (
+            <motion.article
+              key={document.file}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={reveal}
+              transition={{ delay: index * 0.08 }}
+              className="document-card"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <span className="document-number">{String(index + 1).padStart(2, "0")}</span>
+                <span className="document-badge">PDF</span>
+              </div>
+              <h3 className="mt-5 font-serif text-2xl leading-tight text-white">{document.title}</h3>
+              <p className="mt-7 text-sm text-[#dfeaf7]/75">
+                {document.issuer} <span className="text-[#8b5cf6]">—</span> {document.period}
+              </p>
+              <p className="mt-5 min-h-14 text-sm leading-7 text-[#dfeaf7]/65">{document.description}</p>
+              <a href={document.file} download className="document-download mt-8">
+                Download <span aria-hidden="true">→</span>
               </a>
             </motion.article>
           ))}
@@ -267,392 +445,34 @@ function CredentialsSection() {
   );
 }
 
-function ResumeSection() {
-  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
-
-  const bentoCard = "group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 cursor-default transition-colors duration-300";
-
-  const bentoContainer = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const bentoItem = {
-    hidden: { opacity: 0, y: 24 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 70,
-        damping: 14,
-      },
-    },
-  };
-
-  const cardHover = {
-    y: -5,
-    scale: 1.008,
-    borderColor: "rgba(255, 255, 255, 0.12)",
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
-    transition: {
-      type: "tween",
-      ease: "easeOut",
-      duration: 0.25,
-    },
-  };
-
-  return (
-    <section ref={ref} id="resume" className="bg-[#090511] py-24">
-      <div className="mx-auto max-w-[1100px] px-6 lg:px-10">
-        {/* Section Header */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={reveal}
-          className="mb-14"
-        >
-          <p className="text-xs uppercase tracking-[0.35em] text-white/40 mb-3">Resume</p>
-          <h2 className="font-serif text-4xl tracking-[-0.03em] text-white">At a glance</h2>
-        </motion.div>
-
-        {/* Bento Grid */}
-        <motion.div 
-          variants={bentoContainer}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
-
-          {/* About — spans 2 cols */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={`${bentoCard} md:col-span-2`}
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#8B5CF6]/70 mb-3">About</p>
-            <h3 className="text-xl font-semibold text-white mb-1">Krishna Prasanth S</h3>
-            <p className="text-xs text-white/40 mb-3">Junior 3D Artist · Blender Artist · Asset Artist</p>
-            <p className="text-sm leading-relaxed text-white/50">Passionate Junior 3D Artist and Blender Mentor with hands-on experience in 3D modeling, texturing, optimization, and asset creation. Experienced in mentoring students through µLearn Foundation and actively contributing to open-source and technical communities. Interested in creating high-quality game-ready assets and building a career in the AAA gaming industry.</p>
-            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1">
-              <a href="mailto:kpts7102@gmail.com" className="text-xs text-white/40 hover:text-white/80 hover:underline underline-offset-4 transition">kpts7102@gmail.com</a>
-              <a href="tel:+916282160755" className="text-xs text-white/40 hover:text-white/80 hover:underline underline-offset-4 transition">+91 6282160755</a>
-              <a href="https://github.com/krishnaprasanth7102" target="_blank" rel="noreferrer" className="text-xs text-white/40 hover:text-white/80 hover:underline underline-offset-4 transition">GitHub</a>
-              <a href="https://linkedin.com/in/krishna-prasanth-s" target="_blank" rel="noreferrer" className="text-xs text-white/40 hover:text-white/80 hover:underline underline-offset-4 transition">LinkedIn</a>
-            </div>
-          </motion.div>
-
-          {/* Profile Photo */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={`${bentoCard} p-3`}
-          >
-            <div className="aspect-square overflow-hidden rounded-xl bg-white/[0.04] transition duration-500 group-hover:scale-[1.02]">
-              <img src="/profile.jpg" alt="Krishna Prasanth S" className="h-full w-full object-cover" />
-            </div>
-          </motion.div>
-
-          {/* Experience — spans full 3 cols */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={`${bentoCard} lg:col-span-3 md:col-span-2`}
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#8B5CF6]/70 mb-4">Experience</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-              <div className="border-l border-white/[0.08] pl-4 hover:border-[#8B5CF6]/40 transition duration-300">
-                <p className="text-sm font-medium text-white/80">Blender Mentor</p>
-                <p className="text-[11px] text-white/30 mt-0.5">µLearn Foundation · Present</p>
-                <div className="mt-2.5 space-y-1.5 text-[11px] text-white/40 leading-relaxed">
-                  <p className="flex items-start gap-1.5">
-                    <span className="select-none text-white/20">•</span>
-                    <span>Mentor students in Blender workflows, modeling, texturing, lighting, and rendering.</span>
-                  </p>
-                  <p className="flex items-start gap-1.5">
-                    <span className="select-none text-white/20">•</span>
-                    <span>Help the lead to conduct learning sessions and project reviews.</span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="border-l border-white/[0.08] pl-4 hover:border-[#8B5CF6]/40 transition duration-300">
-                <p className="text-sm font-medium text-white/80">Blender Designer Intern</p>
-                <p className="text-[11px] text-white/30 mt-0.5">µLearn Foundation · May 2024 – Aug 2024</p>
-                <div className="mt-2.5 space-y-1.5 text-[11px] text-white/40 leading-relaxed">
-                  <p className="flex items-start gap-1.5">
-                    <span className="select-none text-white/20">•</span>
-                    <span>Created 3D assets and visual content using Blender.</span>
-                  </p>
-                  <p className="flex items-start gap-1.5">
-                    <span className="select-none text-white/20">•</span>
-                    <span>Delivered creative work while maintaining quality standards and deadlines.</span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="border-l border-white/[0.08] pl-4 hover:border-[#8B5CF6]/40 transition duration-300">
-                <p className="text-sm font-medium text-white/80">Blender Designer Intern</p>
-                <p className="text-[11px] text-white/30 mt-0.5">µLearn Foundation · Nov 2023 – Apr 2024</p>
-                <div className="mt-2.5 space-y-1.5 text-[11px] text-white/40 leading-relaxed">
-                  <p className="flex items-start gap-1.5">
-                    <span className="select-none text-white/20">•</span>
-                    <span>Assisted in creating 3D models and visual assets for projects.</span>
-                  </p>
-                  <p className="flex items-start gap-1.5">
-                    <span className="select-none text-white/20">•</span>
-                    <span>Collaborated with teams and gained professional production experience.</span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="border-l border-white/[0.08] pl-4 hover:border-[#8B5CF6]/40 transition duration-300">
-                <p className="text-sm font-medium text-white/80">Campus Ambassador Intern</p>
-                <p className="text-[11px] text-white/30 mt-0.5">BeyondExams · Feb 2023 – Mar 2023</p>
-                <div className="mt-2.5 space-y-1.5 text-[11px] text-white/40 leading-relaxed">
-                  <p className="flex items-start gap-1.5">
-                    <span className="select-none text-white/20">•</span>
-                    <span>Built a portfolio website and mentored students in web development.</span>
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </motion.div>
-
-          {/* Technical Skills */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={`${bentoCard} md:col-span-1`}
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7C3AED]/70 mb-3">Technical Skills</p>
-            <div className="flex flex-wrap gap-1.5">
-              {["Blender", "3D Modeling", "Texturing", "UV Mapping", "Lighting", "Rendering", "Animation", "Assets", "HTML", "CSS", "JavaScript", "React", "Next.js", "Firebase"].map((s) => (
-                <span key={s} className="rounded-full border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/50 transition-all duration-200 hover:scale-105 hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white/80 cursor-default">{s}</span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Soft Skills — spans 2 cols */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={`${bentoCard} md:col-span-1 lg:col-span-2`}
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#EC4899]/70 mb-3">Soft Skills</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {[
-                "Communication",
-                "Problem Solving",
-                "Leadership",
-                "Creativity",
-                "Collaboration",
-                "Adaptability",
-                "Time Management",
-                "Mentoring"
-              ].map((skill) => (
-                <div key={skill} className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 hover:border-white/[0.12] hover:bg-white/[0.04] transition duration-300 hover:scale-[1.02] cursor-default">
-                  <p className="text-[11px] text-white/50">{skill}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Education */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={`${bentoCard} md:col-span-1`}
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#06B6D4]/70 mb-4">Education</p>
-            <div className="space-y-3">
-              <div className="group/edu">
-                <p className="text-sm text-white/80 transition duration-300 group-hover/edu:text-white">B.Tech – Information Technology</p>
-                <p className="text-[11px] text-white/30 mt-0.5">UCEK · 2024–2028</p>
-              </div>
-              <div className="border-t border-white/[0.05] pt-3 group/edu">
-                <p className="text-sm text-white/80 transition duration-300 group-hover/edu:text-white">Higher Secondary Education</p>
-                <p className="text-[11px] text-white/30 mt-0.5">Govt. Boys HSS, Neyyattinkara · 2020–2022</p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Leadership */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={bentoCard}
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#8B5CF6]/70 mb-3">Leadership</p>
-            <div className="flex flex-wrap gap-1.5">
-              {["IEEE Co-Lead", "TinkerHub Co-Lead", "FOSS Club Mentor", "µLearn Lead", "KBA Member"].map((role) => (
-                <span key={role} className="rounded-full border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/50 transition-all duration-200 hover:scale-105 hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white/80 cursor-default">{role}</span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Interests */}
-          <motion.div
-            variants={bentoItem}
-            whileHover={cardHover}
-            className={bentoCard}
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#F59E0B]/70 mb-3">Interests</p>
-            <div className="flex flex-wrap gap-1.5">
-              {["3D Art", "Game Dev", "AAA Gaming", "Blockchain", "Web Dev", "Open Source"].map((interest) => (
-                <span key={interest} className="rounded-full border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/50 transition-all duration-200 hover:scale-105 hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white/80 cursor-default">{interest}</span>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-
-function GalleryGrid() {
-  const [ref, inView] = useInView({ triggerOnce: true, rootMargin: "-100px" });
-
-  const artImages = [
-    "billboard.png",
-    "Screenshot 2026-05-18 222026.png",
-    "Screenshot 2026-05-18 222045.png",
-    "Screenshot 2026-05-18 222102.png",
-    "Screenshot 2026-05-18 222221.png",
-    "Screenshot 2026-05-18 222232.png",
-    "Screenshot 2026-05-18 222240.png",
-    "Screenshot 2026-05-18 222251.png",
-    "Screenshot 2026-05-18 222327.png",
-    "Screenshot 2026-05-18 222337.png",
-    "Screenshot 2026-05-18 222348.png",
-    "Screenshot 2026-05-18 222527.png",
-    "Screenshot 2026-05-18 222539.png",
-    "Screenshot 2026-05-18 222555.png",
-    "Screenshot 2026-05-18 222609.png",
-    "Screenshot 2026-05-18 222618.png",
-    "Screenshot 2026-05-18 222627.png",
-    "Screenshot 2026-05-18 222643.png",
-    "Screenshot 2026-05-18 222731.png",
-    "Screenshot 2026-05-18 222739.png",
-    "Screenshot 2026-05-18 222748.png",
-    "Screenshot 2026-05-18 222756.png",
-    "Screenshot 2026-05-18 222829.png",
-    "Screenshot 2026-05-18 222837.png",
-    "Screenshot 2026-05-18 222847.png",
-    "Screenshot 2026-05-18 222854.png",
-    "Screenshot 2026-05-18 222904.png",
-    "skyscaapper.png",
-  ];
-
-  return (
-    <section ref={ref} id="gallery" className="bg-[#0d0a1f] py-24">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-        <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <motion.div
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={reveal}
-            className="space-y-2"
-          >
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60">Gallery</p>
-            <h2 className="font-serif text-4xl leading-tight text-white sm:text-5xl">Work of Krishna Prasanth S</h2>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={reveal}
-            className="text-right"
-          >
-            <p className="text-sm uppercase tracking-[0.35em] text-white/60">{artImages.length} works in Blender</p>
-          </motion.div>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {artImages.map((image, idx) => (
-            <motion.a
-              key={image}
-              href={`/art/${encodeURI(image)}`}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              variants={reveal}
-              transition={{ delay: idx * 0.02 }}
-              className="group relative overflow-hidden rounded-3xl bg-white/5 shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition hover:-translate-y-1 hover:bg-white/10"
-            >
-              <div className="aspect-[3/4] overflow-hidden">
-                <img
-                  src={encodeURI(`/art/${image}`)}
-                  alt={`Work ${idx + 1}`}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 opacity-0 transition duration-500 group-hover:opacity-100">
-                <div className="rounded-2xl border border-white/10 bg-black/60 px-4 py-3 backdrop-blur-sm text-white">
-                  <p className="text-xs uppercase tracking-[0.35em] text-white/70">Work {idx + 1}</p>
-                  <p className="mt-2 text-sm font-semibold">Open full poster</p>
-                </div>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Footer() {
   return (
-    <footer id="contact" className="border-t border-white/10 bg-[#08060f] py-20">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_auto] lg:items-end">
+    <footer id="contact" className="border-t border-white/10 bg-[#040b12] py-20">
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-white/40">Contact</p>
-            <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">
-              Let&apos;s create something cinematic with Blender, web, or AI.
+            <p className="text-[0.68rem] uppercase tracking-[0.35em] text-[#dfeaf7]/45">Let&apos;s connect</p>
+            <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
+              Open to creative, design, and digital roles where craft matters.
             </h2>
           </div>
 
-          <div className="space-y-4 text-center lg:text-right">
-            <a
-              href="mailto:kpts7102@gmail.com"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#8B5CF6] px-8 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white shadow-lg shadow-[#8B5CF6]/25 transition duration-300 hover:bg-[#7C3AED] hover:shadow-[#7C3AED]/40 hover:-translate-y-0.5 sm:w-auto"
-            >
-              <span>✉</span>
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-end">
+            <a href="mailto:kpts7102@gmail.com" className="neon-button">
               Email me
             </a>
-            <a
-              href="tel:+916282160755"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-white/10 px-8 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white backdrop-blur-sm transition duration-300 hover:bg-white/20 hover:-translate-y-0.5 sm:w-auto"
-            >
-              <span>📁</span>
-              Call me
+            <a href="https://linkedin.com/in/krishna-prasanth-s" target="_blank" rel="noreferrer" className="secondary-button">
+              LinkedIn
             </a>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-white/60">
-            © {new Date().getFullYear()} Krishna Prasanth. Built with Next.js, Blender, and bold visuals.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/60">
-            <a href="#top" className="transition hover:text-white">
-              Back to top
-            </a>
-            <span className="hidden sm:inline">•</span>
-            <a href="#gallery" className="transition hover:text-white">
-              Gallery
-            </a>
-            <span className="hidden sm:inline">•</span>
-            <a href="#credentials" className="transition hover:text-white">
-              Credentials
-            </a>
+        <div className="mt-12 flex flex-col gap-5 border-t border-white/10 pt-8 text-sm text-[#dfeaf7]/60 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Krishna Prasanth S</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <a href="#top" className="transition hover:text-white">Top</a>
+            <a href="#work" className="transition hover:text-white">Work</a>
+            <a href="#experience" className="transition hover:text-white">Experience</a>
           </div>
         </div>
       </div>
@@ -662,13 +482,16 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#090511] text-white selection:bg-[#8B5CF6] selection:text-white">
+    <div className="game-shell min-h-screen text-white selection:bg-[#7be7ff] selection:text-[#08141b]">
       <NavBar />
       <HeroSection />
-      <ResumeSection />
-      <CredentialsSection />
-      <GalleryGrid />
+      <AboutSection />
+      <ExperienceSection />
+      <WorkSection />
+      <SkillsSection />
+      <DocumentsSection />
       <Footer />
     </div>
   );
 }
+

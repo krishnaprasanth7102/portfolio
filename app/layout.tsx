@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Krishna Prasanth S — Portfolio",
-  description: "Blender portfolio for a wireframe-focused digital sculptor.",
+  title: "Krishna Prasanth S | 3D Artist & Creative Designer",
+  description:
+    "Recruiter-focused portfolio for a 3D artist, Blender designer, and creative technologist with a strong visual storytelling portfolio.",
 };
 
 export default function RootLayout({
@@ -27,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-[#0b0509] text-[#fff4f6]">{children}</body>
     </html>
   );
 }

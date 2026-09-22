@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 
 const artImages = [
@@ -56,11 +57,13 @@ function ArtImageCard({ src, index }) {
       variants={imageReveal}
             className="group relative overflow-hidden rounded-[1.5rem] border border-white/8 bg-[#100b1f] shadow-lg transition-all duration-300 hover:border-[#8B5CF6]/40"
     >
-      <div className="aspect-[4/5] overflow-hidden">
-        <img
+      <div className="relative aspect-[4/5] overflow-hidden">
+        <Image
+          fill
           src={encodeURI(`/art/${src}`)}
           alt={`Blender work ${index + 1}`}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
         />
       </div>
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

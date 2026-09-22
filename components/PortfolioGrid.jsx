@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const pieces = [
   {
@@ -86,11 +87,13 @@ export default function PortfolioGrid({ onOpenReel }) {
             onClick={() => onOpenReel(index)}
           >
             <div className="relative overflow-hidden bg-[#0f0f0f] p-6">
-              <div className="aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(245,245,245,0.08),transparent_35%),#111] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)]">
-                <img
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(245,245,245,0.08),transparent_35%),#111] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)]">
+                <Image
+                  fill
                   src={encodeArtPath(piece.filename)}
                   alt={piece.title}
-                  className="h-full w-full object-cover"
+                  className="object-cover"
+                  sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
               </div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 scale-x-0 bg-[#8B5CF6] transition-transform duration-300 group-hover:scale-x-100 origin-left" />
